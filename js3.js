@@ -155,3 +155,21 @@ closeDialogBtn.onclick = ()=>{
 }
 
 
+
+// Akordeons
+
+let accBtns = document.querySelectorAll('.acc');
+let accParagraphs = document.querySelectorAll('.accordeon p');
+
+
+for(btn of accBtns){
+    btn.onclick = (e)=>{
+        for(parag of accParagraphs){
+            parag.style.display="none";
+        }    
+
+        let currAcc = e.target.dataset.acc;
+        document.querySelector('#'+currAcc).style.display="block";
+    }
+}
+accBtns[0].click();
