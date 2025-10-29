@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,19 +14,74 @@
     <script src="./js3.js" defer></script>
 
     <style>
-        .red{
+        .red {
             background-color: red;
             padding: 20px;
         }
-        .blue{
+
+        .blue {
             background-color: blue;
             padding: 20px;
-            
+
         }
 
+
+
+        dialog {
+            position: fixed;
+            top:300px;
+            width: min(720px, 92%);
+            max-width: 960px;
+            border: none;
+            /* no noklusējuma rāmja */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #111;
+            transform-origin: center;
+           
+            animation: dialog-in 180ms ease-out;
+            overflow: hidden;
+            /* lai header/footer būtu 'sticky' droši */
+        }
+
+
+        dialog::backdrop {
+            background: rgba(10, 10, 15, 0.55);
+            backdrop-filter: blur(3px) saturate(1.05);
+        }
+
+
+        /* Animācijas */
+        @keyframes dialog-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px) scale(0.995);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes dialog-out {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(8px) scale(0.995);
+            }
+        }
     </style>
 
 </head>
+
 <body>
     <h1 onclick="manaFunkcija2()">Learn JS</h1>
     <button onclick="manaFunkcija()">Saskaitīt</button>
@@ -46,6 +102,20 @@
     <div class="meneshi">
 
     </div>
-    
+
+
+
+    <!-- Modālais logs -->
+    <button class="openDialog">Atvērt dialogu</button>
+
+    <dialog >
+        <button class="closeDialog">x</button>
+        <h3>Hello</h3>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam tempora voluptatem reprehenderit nostrum
+            repellat temporibus ipsam quia praesentium commodi laudantium aut, similique soluta ducimus voluptates.
+            Voluptate illum dignissimos vel necessitatibus.</p>
+    </dialog>
+
 </body>
+
 </html>

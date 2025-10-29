@@ -135,3 +135,23 @@ document.body.onkeydown = (e)=>{
 
 }
 
+
+
+// Modālais logs
+// Accordeon, Tabs, Nav mobile
+
+
+let dialog = document.querySelector('dialog');
+
+let openDialogBtn = document.querySelector('.openDialog');
+
+let closeDialogBtn = document.querySelector('.closeDialog');
+
+openDialogBtn.onclick = ()=>{
+    dialog.showModal();
+}
+closeDialogBtn.onclick = ()=>{
+    dialog.close();
+}
+
+
