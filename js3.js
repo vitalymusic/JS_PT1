@@ -71,6 +71,8 @@ for(heading of headings){
     heading.dataset.alternative = "cits teksts";
 }
 
+// Elementu ID atribūtu maiņa = attels.id = "";
+
 const months = [
   'janvāris', 'februāris', 'marts', 'aprīlis',
   'maijs', 'jūnijs', 'jūlijs', 'augusts',
@@ -85,4 +87,51 @@ for(menesis of months){
     `
 }
 
+
+// Elementu klases maiņa
+h1.classList.add('red','danger','other');
+h1.classList.remove('other');
+h1.classList.replace('danger','blue');
+h1.onclick = ()=>{
+    h1.classList.toggle('blue');
+}
+
+// Elementu notikumi
+
+// peles, klaviatūras, Window, formas
+
+image.onclick = ()=>{
+    image.style.width="100%"
+}
+image.ondblclick = ()=>{
+    image.style.width=""
+}
+
+image.onmouseover = ()=>{
+    image.style.cursor = "not-allowed"
+}
+
+image.onmouseleave = ()=>{
+    image.style.cursor = "pointer";
+}
+
+
+let x = 0;y=0;
+// code: 'ArrowRight'
+document.body.onkeydown = (e)=>{
+    console.log(e);
+    if(e.code=="ArrowRight"){
+        image.style.transform = `translate(${x+=10}px,${y}px)`;
+    }
+    if(e.code=="ArrowLeft"){
+        image.style.transform = `translate(${x-=10}px,${y}px)`;
+    }
+    if(e.code=="ArrowUp"){
+        image.style.transform = `translate(${x}px,${y-=10}px)`;
+    }
+    if(e.code=="ArrowDown"){
+        image.style.transform = `translate(${x}px,${y+=10}px)`;
+    }
+
+}
 
