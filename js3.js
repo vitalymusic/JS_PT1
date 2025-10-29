@@ -173,3 +173,6 @@ for(btn of accBtns){
     }
 }
 accBtns[0].click();
+
+
+// Tabs
