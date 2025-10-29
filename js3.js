@@ -174,5 +174,6 @@ for(btn of accBtns){
 }
 accBtns[0].click();
 
+// Pierakstīt / uzlabot CSS esošiem elementiem
 
-// Tabs
+// Izveidot Tabs
