@@ -28,8 +28,10 @@
 
 
         dialog {
-            position: fixed;
-            top: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: min(720px, 92%);
             max-width: 960px;
             border: none;
@@ -42,7 +44,7 @@
             color: #111;
             transform-origin: center;
 
-            animation: dialog-in 180ms ease-out;
+            /* animation: dialog-in 180ms ease-out; */
             overflow: hidden;
             /* lai header/footer būtu 'sticky' droši */
         }
@@ -77,6 +79,43 @@
                 opacity: 0;
                 transform: translateY(8px) scale(0.995);
             }
+        }
+
+
+
+        .accordeon {
+            width: min(700px, 90%);
+            margin: 2rem auto;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            color: #222;
+        }
+
+        .accordeon .acc {
+            display: block;
+            background: linear-gradient(180deg, #f8f9fb 0%, #f0f2f7 100%);
+            padding: 0.9rem 1.2rem;
+            border: 1px solid #d5d8df;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+
+        .accordeon p {
+            min-height: 40px;
+            overflow: hidden;
+            margin: 0;
+            margin-bottom: 10px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #d5d8df;
+            background: #fff;
+            /* border-radius: 0 0 8px 8px; */
+            transition: all 0.4s ease;
         }
     </style>
 
@@ -126,7 +165,8 @@
         <div class="acc" data-acc="acc2">Otrā sadaļa</div>
         <p id="acc2">Otrā sadaļa Otrā sadaļaOtrā sadaļaOtrā sadaļaOtrā sadaļaOtrā sadaļa</p>
         <div class="acc" data-acc="acc3">Trešā sadaļa</div>
-        <p id="acc3">Trešā sadaļa Trešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļa</p>
+        <p id="acc3">Trešā sadaļa Trešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļaTrešā sadaļa
+        </p>
     </div>
 
 </body>
