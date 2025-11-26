@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<title>3 soļu pasūtījuma forma</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    padding: 20px;
+}
+
+.form-step {
+    display: none;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-step.active {
+    display: block;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[disabled] {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+
+<h1>Pasūtījuma noformēšana</h1>
+
+<!-- ========================= -->
+<!--        1. Solis           -->
+<!-- ========================= -->
+<div class="form-step active" id="solis1">
+    <h2>1. solis — Personīgā informācija</h2>
+
+    <label>Vārds Uzvārds</label><br>
+    <input type="text" id="vards" placeholder="Jūsu vārds" style="width:100%; margin-bottom:10px;"><br>
+
+    <label>Tālrunis</label><br>
+    <input type="text" id="talrunis" placeholder="26123456" style="width:100%; margin-bottom:10px;"><br>
+
+    <div class="buttons">
+        <span></span>
+        <button id="toStep2">Turpināt</button>
+    </div>
+</div>
+
+<!-- ========================= -->
+<!--        2. Solis           -->
+<!-- ========================= -->
+<div class="form-step" id="solis2">
+    <h2>2. solis — Piegādes adrese</h2>
+
+    <label>Adrese</label><br>
+    <input type="text" id="adrese" placeholder="Ielas nosaukums, nr." style="width:100%; margin-bottom:10px;"><br>
+
+    <label>Pilsēta</label><br>
+    <input type="text" id="pilseta" placeholder="Pilsēta" style="width:100%; margin-bottom:10px;"><br>
+
+    <label>Valsts</label><br>
+    <input type="text" id="valsts" value="Latvija" style="width:100%; margin-bottom:10px;"><br>
+
+    <div class="buttons">
+        <button id="backTo1">Atpakaļ</button>
+        <button id="toStep3">Turpināt</button>
+    </div>
+</div>
+
+<!-- ========================= -->
+<!--        3. Solis           -->
+<!-- ========================= -->
+<div class="form-step" id="solis3">
+    <h2>3. solis — Pasūtījuma apstiprināšana</h2>
+
+    <p><strong>Vārds Uzvārds:</strong> <span id="rezVards"></span></p>
+    <p><strong>Tālrunis:</strong> <span id="rezTalrunis"></span></p>
+    <p><strong>Adrese:</strong> <span id="rezAdrese"></span></p>
+    <p><strong>Pilsēta:</strong> <span id="rezPilseta"></span></p>
+    <p><strong>Valsts:</strong> <span id="rezValsts"></span></p>
+
+    <div class="buttons">
+        <button id="backTo2">Atpakaļ</button>
+        <button onclick="alert('Pasūtījums pabeigts!')">Pabeigt pasūtījumu</button>
+    </div>
+</div>
+
+<script>
+function showStep(stepId) {
+    document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+}
+
+// → Uz 2. soli
+document.getElementById('toStep2').onclick = () => {
+    if (!vards.value || !talrunis.value) {
+        alert("Lūdzu aizpildiet visus laukus!");
+        return;
+    }
+    showStep('solis2');
+};
+
+// → Atpakaļ uz 1. soli
+document.getElementById('backTo1').onclick = () => showStep('solis1');
+
+// → Uz 3. soli
+document.getElementById('toStep3').onclick = () => {
+    if (!adrese.value || !pilseta.value) {
+        alert("Lūdzu aizpildiet adresi!");
+        return;
+    }
+
+    // Aizpilda kopsavilkumu
+    rezVards.innerText = vards.value;
+    rezTalrunis.innerText = talrunis.value;
+    rezAdrese.innerText = adrese.value;
+    rezPilseta.innerText = pilseta.value;
+    rezValsts.innerText = valsts.value;
+
+    showStep('solis3');
+};
+
+// → Atpakaļ uz 2. soli
+document.getElementById('backTo2').onclick = () => showStep('solis2');
+</script>
+
+</body>
+</html>

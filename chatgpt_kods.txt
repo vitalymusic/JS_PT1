@@ -1,0 +1,77 @@
+<script>
+const fields = {
+    vards: {
+        el: document.querySelector('#vards'),
+        validate: v => v.length >= 3,
+        msg: "Vārdā jābūt vismaz 3 simboliem"
+    },
+    epasts: {
+        el: document.querySelector('#epasts'),
+        validate: v => /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/.test(v),
+        msg: "Ieraksti pareizu e-pastu"
+    },
+    parole: {
+        el: document.querySelector('#parole'),
+        validate: v => v.length >= 6,
+        msg: "Parolei jābūt vismaz 6 simboliem"
+    }
+};
+
+const submitBtn = document.querySelector('#submit');
+
+// deaktivē laukus, izņemot pirmo
+fields.epasts.el.disabled = true;
+fields.parole.el.disabled = true;
+submitBtn.disabled = true;
+
+Object.values(fields).forEach((field, index, arr) => {
+    field.el.addEventListener('input', () => {
+        clearError(field.el);
+
+        if (field.validate(field.el.value)) {
+            field.el.classList.remove('error-border');
+
+            // aktivizē nākamo lauku
+            if (arr[index + 1]) arr[index + 1].el.disabled = false;
+            else submitBtn.disabled = false;
+        } else {
+            showError(field.msg, field.el);
+            field.el.classList.add('error-border');
+
+            // deaktivē nākamos laukus
+            if (arr[index + 1]) {
+                arr.slice(index + 1).forEach(f => {
+                    f.el.disabled = true;
+                    f.el.value = "";
+                });
+                submitBtn.disabled = true;
+            }
+        }
+    });
+});
+
+function showError(text, element) {
+    clearError(element);
+    const div = document.createElement('div');
+    div.className = 'error';
+    div.innerText = text;
+    element.insertAdjacentElement('afterend', div);
+}
+
+function clearError(element) {
+    const existing = element.parentElement.querySelector('.error');
+    if (existing) existing.remove();
+}
+</script>
+
+<style>
+.error {
+    color: red;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.error-border {
+    border: 2px solid red !important;
+}
+</style>

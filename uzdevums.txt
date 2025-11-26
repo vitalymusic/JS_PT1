@@ -1,0 +1,5 @@
+uzrakstīt formu, kas parādās trijos soļos (internetapirkuma noformēšana)
+
+1. Solis - Vārds uzvārds Talrunis
+2.solis - Piegādes adrese
+3. Pabeigt pasūtījumnu

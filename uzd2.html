@@ -41,6 +41,7 @@
         let epastaLauks = document.querySelector('#epasts');
         let parolesLauks = document.querySelector('#parole');
         let formasIesniegsana = document.querySelector('#submit');
+        // let inputteksts = document.querySelector('input[type="text"]');
 
 
         emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
@@ -48,7 +49,9 @@
         vardaLauks.oninput = (e)=>{
             if(vardaLauks.value.length >=3 ){
                 iznemtKludu(document);
+                e.target.removeAttribute('style');
                 epastaLauks.removeAttribute('disabled');
+
             }else{
                 paraditKludu("Vārdā jābūt vismaz 3 simboli",e.target);
                 epastaLauks.setAttribute('disabled','');
@@ -80,22 +83,25 @@
 
         function paraditKludu(kludasTeksts,elementsAizKuraIelikt){
                iznemtKludu(document);
-
+                elementsAizKuraIelikt.style.borderColor = "red";
                 let errorDiv = document.createElement('div');
                 errorDiv.classList.add('error');
                 errorDiv.innerText = kludasTeksts;
-                
-                elementsAizKuraIelikt.insertAdjacentElement('afterend',errorDiv);                
-
+                elementsAizKuraIelikt.insertAdjacentElement('afterend',errorDiv); 
 
         }
 
         function iznemtKludu(elementsKuraMekle){
+
              if(elementsKuraMekle.querySelector('div.error')){
+                    
                     elementsKuraMekle.querySelector('div.error').remove();
                 }
+
         }
 
+        // Uztaisīt lai kļudainiem laukiem parādās sarkanā līnija   
+        
     </script>
 </body>
 </html>
