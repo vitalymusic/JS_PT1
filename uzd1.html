@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1" cellpadding="10">
+
+    </table>
+    <button>Ģenberēt tabulu</button>
+
+    
+    <script>
+        // 1. Uzdevums – Dinamiska tabula ar klikšķiem
+        // Izveido HTML ar tukšu <table> elementu un pogu "Ģenerēt tabulu".
+        // Ar JavaScript uzspiežot uz pogas:
+        // • Izveido tabulu ar 5 rindām un 5 kolonnām.
+        // • Katrā šūnā ieraksti skaitli (rindasNr × kolonnasNr).
+        // • Ja lietotājs uzspiež uz šūnas, tā fons mainās uz dzeltenu.
+
+        document.querySelector('button').onclick = ()=>{
+            generet();
+        };
+
+        function generet(){
+            let table = document.querySelector('table');
+            let rindas = 10;
+            let kolonnas = 10;
+            let tabulasHtml = "";
+
+
+            for(let i=1;i<=rindas;i++){ //veido tikai rindas
+                tabulasHtml += `<tr>`;
+                    for(let j=1;j<=kolonnas;j++){ //veido kolonnas
+                             tabulasHtml += `<td>${i*j}</td>`;
+                    }
+                tabulasHtml += `</tr>`;
+            }
+            table.innerHTML =  tabulasHtml;
+
+            let sunas = document.querySelectorAll('td');
+
+            for(suna of sunas){
+                suna.onclick = (e)=>{
+                    e.target.style.background = "yellow";
+                }
+            }
+
+
+
+        }
+
+
+    </script>
+</body>
+</html>
