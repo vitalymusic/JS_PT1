@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <title>Document</title>
+
+    <style>
+
+
+    </style>
+</head>
+<body>
+    <h1>Formas</h1>
+    <form action="">
+        <input type="text" name="vards" id="vards" placeholder="Vards"><br>
+        <input type="email" name="epasts" id="epasts" placeholder="Epasts" disabled><br>
+        <input type="password" name="parole" id="parole" placeholder="Parole" disabled><br>
+        <input type="submit" value="Iesniegt" disabled id="submit">
+    </form>
+
+
+    <script>
+//         2. Uzdevums – Interaktīva forma ar validāciju
+        // Izveido formu ar laukiem: vārds, e-pasts, parole.
+        // • Kad lietotājs nospiež pogu "Iesniegt", JavaScript pārbauda:
+        // o vai visi lauki ir aizpildīti;
+        // o vai e-pasta lauks satur @;
+        // o vai parole ir vismaz 6 simboli.
+        // • Ja ir kļūdas, zem attiecīgā lauka parādās sarkans paziņojums.
+        // • Ja viss pareizi, parādās zaļš ziņojums: “Forma iesniegta veiksmīgi!”.
+
+
+
+        // elem1.insertAdjacentElement('afterend',picturesDiv);
+
+
+
+        let vardaLauks = document.querySelector('#vards');
+        let epastaLauks = document.querySelector('#epasts');
+        let parolesLauks = document.querySelector('#parole');
+        let formasIesniegsana = document.querySelector('#submit');
+
+
+        emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
+
+        vardaLauks.oninput = (e)=>{
+            if(vardaLauks.value.length >=3 ){
+                iznemtKludu(document);
+                epastaLauks.removeAttribute('disabled');
+            }else{
+                paraditKludu("Vārdā jābūt vismaz 3 simboli",e.target);
+                epastaLauks.setAttribute('disabled','');
+            }
+            
+        }
+         epastaLauks.oninput = (e)=>{
+            if(epastaLauks.value.match(emailRegex)){
+                iznemtKludu(document);
+                parolesLauks.removeAttribute('disabled');
+            }else{
+                paraditKludu("ieraksi pareizu epastu",e.target);
+                parolesLauks.setAttribute('disabled','');
+            }
+            
+        }
+
+           parolesLauks.oninput = (e)=>{
+            if(parolesLauks.value.length >=6 ){
+                 iznemtKludu(document);
+                formasIesniegsana.removeAttribute('disabled');
+            }else{
+                paraditKludu("Parolei jābūt vismaz 6 simboliem",e.target);
+                formasIesniegsana.setAttribute('disabled','');
+            }
+            
+        }
+
+
+        function paraditKludu(kludasTeksts,elementsAizKuraIelikt){
+               iznemtKludu(document);
+
+                let errorDiv = document.createElement('div');
+                errorDiv.classList.add('error');
+                errorDiv.innerText = kludasTeksts;
+                
+                elementsAizKuraIelikt.insertAdjacentElement('afterend',errorDiv);                
+
+
+        }
+
+        function iznemtKludu(elementsKuraMekle){
+             if(elementsKuraMekle.querySelector('div.error')){
+                    elementsKuraMekle.querySelector('div.error').remove();
+                }
+        }
+
+    </script>
+</body>
+</html>
