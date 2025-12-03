@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+</head>
+<body>
+        <h1>Ka programmēt izmantojot API</h1>
+        <h2>API - Application Programming Interface</h2>
+
+        <button onclick="ieladetProduktus()">Ielādēt produktus</button>
+
+        <div class="categories">
+
+        </div>
+
+
+        <div class="products">
+
+        </div>
+
+
+        <script>
+            let produktiUrl = "https://dummyjson.com/products";
+            function ieladetProduktus(){
+                fetch(produktiUrl)
+                .then((atbilde)=>{ return atbilde.json()})
+                .then((dati)=>{
+                    // console.log(dati)
+                    izvaditProduktus(dati);
+
+                }).finally(()=>{
+                    alert("dati ir ielādēti");
+                })
+            }
+
+            function izvaditProduktus(dati){
+                    let html = "";
+                    for( product of dati.products){
+                        html +=`
+                            <div class="product">
+                                <h3>${product.title}</h3>
+                                <p>Apraksts: ${product.description}</p>
+                                <p>Cena: ${product.price}</p>
+                                <img src="${product.thumbnail}"> 
+                                <button data-id="${product.id} data-name="">Nopirkt</button>
+                            </div>    
+
+                        `
+                    }
+                    document.querySelector('.products').innerHTML = html;
+            }
+
+            // Produktu kategoriju ielāde
+
+            fetch('https://dummyjson.com/products/category-list')
+            .then((resp)=>{ return resp.json()})
+            .then(
+                (dati)=>{
+                    dati.forEach((elem)=>{
+                        document.querySelector('.categories').innerHTML +=`
+                            <button data-category="${elem}" class="categoryButton">${elem}</button>
+                        `;
+
+                    })
+
+                }
+            ).then(()=>{
+                buttons = document.querySelectorAll('.categoryButton');
+                for(button of buttons){
+                    button.onclick = (event)=>{
+                        catName = event.target.dataset.category;
+                        // alert(catName);
+                        fetch('https://dummyjson.com/products/category/'+ catName)
+                         .then((atbilde)=>{ return atbilde.json()})
+                         .then((produkti)=>{ izvaditProduktus(produkti)})
+                    }
+                }
+            })
+
+
+        </script>
+</body>
+</html>
