@@ -14,11 +14,24 @@
         <div class="categories">
 
         </div>
-
+        <div class="search">
+            <input type="text" name="productName" id="productName">
+        </div>
 
         <div class="products">
 
         </div>
+
+        <footer>
+            <form enctype="multipart/form-data">
+                <input type="text" name="name" id="name">
+                <input type="email" name="email" id="email">
+                <textarea name="message" id="message"></textarea>
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Nosūtīt">
+            </form>
+
+        </footer>
 
 
         <script>
@@ -44,14 +57,22 @@
                                 <p>Apraksts: ${product.description}</p>
                                 <p>Cena: ${product.price}</p>
                                 <img src="${product.thumbnail}"> 
+                                <div class="images">
+
+                                </div>
                                 <button data-id="${product.id} data-name="">Nopirkt</button>
                             </div>    
 
                         `
-                    }
+                           
                     document.querySelector('.products').innerHTML = html;
+                    for(image of product.images){
+                                  document.querySelector('.images').innerHTML+=`
+                                    <img src="${image}" width="150">
+                                  `  
+                        }
+                    }   
             }
-
             // Produktu kategoriju ielāde
 
             fetch('https://dummyjson.com/products/category-list')
@@ -62,7 +83,6 @@
                         document.querySelector('.categories').innerHTML +=`
                             <button data-category="${elem}" class="categoryButton">${elem}</button>
                         `;
-
                     })
 
                 }
@@ -79,7 +99,50 @@
                 }
             })
 
+            document.querySelector('#productName').oninput = (e)=>{
+                if(e.target.value.length >3){
+                    fetch(`https://dummyjson.com/products/search?q=${e.target.value}`)
+                            .then((atbilde)=>{ return atbilde.json()})
+                            .then((produkti)=>{ izvaditProduktus(produkti)})
+                }
+        }
 
+
+
+
+        // Kontaktu formas datu nosūtīšana
+        //https://www.formbackend.com/f/cd3bf4aeeea3cc03
+
+
+        let form = document.querySelector('form');
+        form.onsubmit  = (e)=>{
+            e.preventDefault();
+            let data = new FormData(form);
+            fetch('https://www.formbackend.com/f/cd3bf4aeeea3cc03',{
+                  method: "POST",
+                  body:data,
+                  headers:{
+                     Accept: "application/json",
+
+                  }
+            })
+            .then((resp)=>{return resp.json()})
+            .then((data)=>{
+                console.log(data);
+                if(data.errors.length == 0){
+                    form.reset();
+                    pazinojums("Dati nosūtīti");
+                }
+            })
+        }
+
+        function pazinojums(text){
+                // Uztaisīt paziņojumu (<div class="alert">)
+                // Pec 5 sekundēm paziņojums pazūd
+                // *Animācija
+
+                alert(text);
+        };
         </script>
 </body>
 </html>
